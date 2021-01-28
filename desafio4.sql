@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:917f503047839c53ad2431a1eca3bc3b79af6e715362fe1cc972a4b4c3bf2244
-size 251
+CREATE VIEW top_3_artistas AS
+SELECT a.artista AS artista,
+(SELECT COUNT(*) FROM SpotifyClone.seguindo_artistas AS follow
+WHERE a.artista_id = follow.artista_id) AS seguidores 
+FROM SpotifyClone.artistas AS a
+ORDER BY seguidores DESC, artista
+LIMIT 3

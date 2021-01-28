@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3e41bcf1d1666d33b9ae695c55e4e26d580358ba50f6600079a16823d6922ca7
-size 310
+CREATE VIEW historico_reproducao_usuarios AS
+SELECT usr.usuario AS "usuario", c.cancao AS "nome" 
+FROM SpotifyClone.usuarios AS usr
+INNER JOIN SpotifyClone.cancoes AS c
+INNER JOIN SpotifyClone.historico_de_reproducoes AS h
+ON h.cancao_id = c.cancao_id AND h.usuario_id = usr.usuario_id
+ORDER BY usuario, nome;

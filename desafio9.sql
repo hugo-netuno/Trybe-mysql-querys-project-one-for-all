@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:86b0ff8d26a717be3e08a0bd9af59c071feb093de538a00ac97f537ddb676753
-size 450
+DELIMITER $$
+
+CREATE PROCEDURE albuns_do_artista(IN nome_artista VARCHAR(45))
+BEGIN
+    SELECT (SELECT ar.artista FROM SpotifyClone.artistas AS ar WHERE al.artista_id = ar.artista_id) AS artista,
+    al.album AS album
+    FROM SpotifyClone.albuns AS al
+    WHERE (SELECT ar.artista FROM SpotifyClone.artistas AS ar WHERE al.artista_id = ar.artista_id) = nome_artista
+    ORDER BY album;
+END $$
+
+DELIMITER ;
+
+CALL albuns_do_artista('Walter Phoenix');

@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9eec3a1bf7efa708891c2560be721bcaccf4d01198be17ce3b16f41717544eaf
-size 257
+CREATE VIEW top_2_hits_do_momento AS
+SELECT c.cancao AS cancao,
+(SELECT COUNT(*)
+FROM SpotifyClone.historico_de_reproducoes AS hist
+WHERE c.cancao_id = hist.cancao_id)
+AS reproducoes
+FROM SpotifyClone.cancoes AS c
+ORDER BY reproducoes DESC, cancao
+LIMIT 2;

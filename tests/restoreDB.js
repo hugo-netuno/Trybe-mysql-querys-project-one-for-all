@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:68d1fcb1d62fcd5f2412daf9f3e4eda137f098d5863dfd335b53e28ca3d19608
-size 386
+const Importer = require('mysql-import');
+
+const restoreDB = async () => {
+	const importer = new Importer(
+		{ user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME },
+	);
+
+	try {
+		await importer.import('./desafio1.sql');
+	}
+	catch (error) {
+		console.log('Erro ao restaurar o dump!');
+	}
+
+	importer.disconnect();
+}
+
+module.exports = restoreDB;
